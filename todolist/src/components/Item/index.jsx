@@ -15,15 +15,21 @@ export default class Item extends Component {
             this.props.updateTodo(id,event.target.checked);
         }
     }
+    handleDelete = (id)=>{
+        if(window.confirm('Are you sure to delete this task')){
+            this.props.deleteTodo(id)
+        }
+        
+    }
   render() {
     const {id,name,done}=this.props;
     return ( 
         <li style={{backgroundColor:this.state.mouse ? '#ddd':'white'}} onMouseEnter={this.handleMouse(true)} onMouseLeave={this.handleMouse(false)} >
             <label>
-            <input type="checkbox" defaultChecked={done} onChange={this.handleCheck(id)}/>
+            <input type="checkbox" checked={done} onChange={this.handleCheck(id)}/>
             <span>{name}</span>
             </label>
-            <button className="btn btn-danger" style={{display:this.state.mouse?'block':'none'}}>Delete</button>  
+            <button  onClick={()=>{this.handleDelete(id)}}className="btn btn-danger" style={{display:this.state.mouse?'block':'none'}}>Delete</button>  
         </li>
     )
   }
